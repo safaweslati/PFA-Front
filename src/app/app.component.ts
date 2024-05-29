@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {FirstService} from "./first.service";
+import {Observable} from "rxjs";
+import { Interests } from './models/interests';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,13 @@ import {FirstService} from "./first.service";
 export class AppComponent {
   title = 'pfa-interface';
   userName: string = '';
-  userInterests = [];
+  userInterests$: Observable<Interests> | null = null;
 
   constructor(private service: FirstService) {}
 
   submitForm() {
-    this.userInterests = this.service.predictInterests(this.userName);
+    console.log(this.userName);
+    this.userInterests$ = this.service.predictInterests(this.userName);
   }
 }
+

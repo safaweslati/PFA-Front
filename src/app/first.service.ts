@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Interests } from './models/interests';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirstService {
+  private apiUrl = 'http://127.0.0.1:5000/predict';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  predictInterests(userName: string) {
-    //return this.http.post<any>('http://localhost:5000/predict', { userName });
-    return []
+  predictInterests(username: string): Observable<Interests> {
+    return this.http.post<Interests>(this.apiUrl, { username });
   }
+  // predictInterests(username: string) {
+  //   return [];
+  // }
 }
